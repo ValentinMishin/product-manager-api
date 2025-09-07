@@ -5,10 +5,12 @@ import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.valentin.product_manager_api.dto.*;
-import ru.valentin.product_manager_api.dto.mapper.DtoMapper;
+import ru.valentin.product_manager_api.dto.DtoMapper;
 import ru.valentin.product_manager_api.model.Category;
 import ru.valentin.product_manager_api.model.Product;
 import ru.valentin.product_manager_api.model.Rating;
@@ -17,6 +19,7 @@ import ru.valentin.product_manager_api.repository.ProductRepository;
 import ru.valentin.product_manager_api.repository.RatingRepository;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -142,6 +145,52 @@ public class ProductService {
     public Page<ResponseProductDto> getProductsByPriceRange(BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable) {
         Page<Product> productPage = productRepository.findByPriceBetween(minPrice, maxPrice, pageable);
         return productPage.map(dtoMapper::productToResponseProductDto);
+    }
+
+    public Page<ResponseProductDto> getProductsByCategoryId(Long categoryId, Pageable pageable) {
+        Page<Product> productPage = productRepository.findByCategoryId(categoryId, pageable);
+
+        return productPage.map(dtoMapper::productToResponseProductDto);
+    }
+
+    public Page<ResponseProductDto> getProductsByCategoryTitle(String category, Pageable pageable) {
+        Page<Product> productPage = productRepository.findByCategoryTitle(category, pageable);
+
+        return productPage.map(dtoMapper::productToResponseProductDto);
+    }
+
+    public Page<ResponseProductDto> getAllProductsWithPriceCategoryTitleSorting(
+            Pageable pageable,
+            String priceSortDirection,
+            String categorySortDirection) {
+
+        Sort sort = createPriceCategoryTitleSort(priceSortDirection, categorySortDirection);
+        Pageable priceCategoryPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
+
+        return getAllProducts(priceCategoryPageable);
+    }
+
+    private Sort createPriceCategoryTitleSort(String priceSortDirection, String categorySortDirection) {
+        List<Sort.Order> orders = new ArrayList<>();
+
+        // Добавляем сортировку по цене если указано направление
+        if (priceSortDirection != null && !priceSortDirection.trim().isEmpty()) {
+            Sort.Direction priceDirection = Sort.Direction.fromString(priceSortDirection);
+            orders.add(new Sort.Order(priceDirection, "price"));
+        }
+
+        // Добавляем сортировку по категории если указано направление
+        if (categorySortDirection != null && !categorySortDirection.trim().isEmpty()) {
+            Sort.Direction categoryDirection = Sort.Direction.fromString(categorySortDirection);
+            orders.add(new Sort.Order(categoryDirection, "category.title"));
+        }
+
+        // Если не указано ни одного направления используем сортировку по умолчанию
+        if (orders.isEmpty()) {
+            orders.add(new Sort.Order(Sort.Direction.ASC, "id"));
+        }
+
+        return Sort.by(orders);
     }
 
     @Transactional
