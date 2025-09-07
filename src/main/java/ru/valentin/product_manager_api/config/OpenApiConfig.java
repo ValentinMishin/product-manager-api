@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @OpenAPIDefinition(
         info = @Info(
-                title = "Product API",
+                title = "Product-manager API",
                 version = "1.0",
                 description = "API для управления товарами с синхронизацией из внешнего сервиса"
         )
