@@ -34,6 +34,14 @@ dependencies {
     annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
 }
 
+tasks.bootRun {
+    systemProperty("spring.profiles.active", "dev")
+}
+
+tasks.named("jar") {
+    enabled = false
+}
+
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
