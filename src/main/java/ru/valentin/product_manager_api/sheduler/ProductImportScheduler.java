@@ -18,12 +18,12 @@ public class ProductImportScheduler {
 
     @Scheduled(fixedRateString = "${app.import.interval}")
     public void scheduledImport() {
-        log.info("Запуск импорта товаров");
+        log.info("Запуск запланированного импорта товаров");
         try {
             productService.importProducts();
-            log.info("Импорт завершен успешно");
+            log.info("Запланированный импорт завершен успешно");
         } catch (Exception e) {
-            log.error("Ошибка при импорте: {}", e.getMessage(), e);
+            log.error("Ошибка при запланированном импорте: {}", e.getMessage(), e);
         }
     }
 }
