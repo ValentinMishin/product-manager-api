@@ -11,8 +11,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    private Long external_id;
+    @Column(unique = true, name = "external_id")
+    private Long externalId;
 
     @Column(nullable = false)
     private String title;
@@ -33,8 +33,8 @@ public class Product {
 
     public Product() {}
 
-    public Product(Long external_id, String title, BigDecimal price, String description, Category category, Rating rating) {
-        this.external_id = external_id;
+    public Product(Long externalId, String title, BigDecimal price, String description, Category category, Rating rating) {
+        this.externalId = externalId;
         this.title = title;
         this.price = price;
         this.description = description;
@@ -50,12 +50,12 @@ public class Product {
         this.id = id;
     }
 
-    public Long getExternal_id() {
-        return external_id;
+    public Long getExternalId() {
+        return externalId;
     }
 
-    public void setExternal_id(Long external_id) {
-        this.external_id = external_id;
+    public void setExternalId(Long externalId) {
+        this.externalId = externalId;
     }
 
     public String getTitle() {
@@ -112,13 +112,13 @@ public class Product {
         if (o == null || getClass() != o.getClass()) return false;
 
         Product product = (Product) o;
-        return id.equals(product.id) && Objects.equals(external_id, product.external_id) && title.equals(product.title) && price.equals(product.price) && description.equals(product.description);
+        return id.equals(product.id) && Objects.equals(externalId, product.externalId) && title.equals(product.title) && price.equals(product.price) && description.equals(product.description);
     }
 
     @Override
     public int hashCode() {
         int result = id.hashCode();
-        result = 31 * result + Objects.hashCode(external_id);
+        result = 31 * result + Objects.hashCode(externalId);
         result = 31 * result + title.hashCode();
         result = 31 * result + price.hashCode();
         result = 31 * result + description.hashCode();
@@ -129,7 +129,7 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "id=" + id +
-                ", external_id=" + external_id +
+                ", external_id=" + externalId +
                 ", title='" + title + '\'' +
                 ", price=" + price +
                 ", description='" + description + '\'' +
