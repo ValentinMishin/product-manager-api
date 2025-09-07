@@ -2,7 +2,7 @@ package ru.valentin.product_manager_api.service;
 
 import org.springframework.stereotype.Service;
 import ru.valentin.product_manager_api.dto.ResponseCategoryDto;
-import ru.valentin.product_manager_api.dto.mapper.DtoMapper;
+import ru.valentin.product_manager_api.dto.DtoMapper;
 import ru.valentin.product_manager_api.model.Category;
 import ru.valentin.product_manager_api.repository.CategoryRepository;
 import ru.valentin.product_manager_api.repository.ProductRepository;
