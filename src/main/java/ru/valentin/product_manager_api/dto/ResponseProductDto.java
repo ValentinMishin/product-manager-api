@@ -17,16 +17,16 @@ public class ResponseProductDto extends ProductDto{
 
     @Schema(description = "Идентификатор товара во внешней системе", example = "1")
     @Positive(message = "ID товара должен быть положительным числом")
-    @JsonProperty("external_id")
-    private Long external_id;
+    @JsonProperty("externalId")
+    private Long externalId;
 
     public ResponseProductDto() {
     }
 
-    public ResponseProductDto(String title, BigDecimal price, String description, String category, RatingDto rating, Long id, Long external_id) {
+    public ResponseProductDto(String title, BigDecimal price, String description, String category, RatingDto rating, Long id, Long externalId) {
         super(title, price, description, category, rating);
         this.id = id;
-        this.external_id = external_id;
+        this.externalId = externalId;
     }
 
     public Long getId() {
@@ -37,19 +37,19 @@ public class ResponseProductDto extends ProductDto{
         this.id = id;
     }
 
-    public Long getExternal_id() {
-        return external_id;
+    public Long getExternalId() {
+        return externalId;
     }
 
-    public void setExternal_id(Long external_id) {
-        this.external_id = external_id;
+    public void setExternalId(Long externalId) {
+        this.externalId = externalId;
     }
 
     @Override
     public String toString() {
         return "ResponseProductDto{" +
                 "id=" + id +
-                ", external_id=" + external_id +
+                ", externalId=" + externalId +
                 ", title='" + title + '\'' +
                 ", price=" + price +
                 ", description='" + description + '\'' +
