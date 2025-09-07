@@ -15,7 +15,8 @@ public class Category {
 
     @OneToMany(mappedBy = "category",
             cascade = CascadeType.ALL, /*уточнить*/
-            fetch = FetchType.LAZY)
+            fetch = FetchType.LAZY,
+            orphanRemoval = true)
     private Set<Product> products = new HashSet<>();
 
     public void addProduct(Product product) {
