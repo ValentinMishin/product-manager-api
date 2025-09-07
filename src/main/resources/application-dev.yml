@@ -1,0 +1,6 @@
+external:
+  api:
+    url: http://localhost:8081/api/fproducts
+app:
+  import:
+    interval: 60000
