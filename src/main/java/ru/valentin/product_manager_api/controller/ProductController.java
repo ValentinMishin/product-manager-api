@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.valentin.product_manager_api.dto.ProductDto;
@@ -46,6 +47,7 @@ public class ProductController {
                     content = @Content(mediaType = "text/plain")),
             @ApiResponse(responseCode = "500", description = "Ошибка при импорте товаров")
     })
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/import")
     public ResponseEntity<String> importProducts() {
         try {
@@ -68,6 +70,7 @@ public class ProductController {
                             schema = @Schema(implementation = ResponseProductDto.class))),
             @ApiResponse(responseCode = "400", description = "Невалидные данные товара")
     })
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<ResponseProductDto> createProduct(@Parameter(description = "DTO для создания товара", required = true)
                                                                 @Valid @RequestBody ProductDto productDto) {
@@ -93,6 +96,7 @@ public class ProductController {
             @ApiResponse(responseCode = "400", description = "Невалидные данные для обновления"),
             @ApiResponse(responseCode = "404", description = "Товар не найден")
     })
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{productId}")
     public ResponseEntity<ResponseProductDto> updateProduct(
             @Parameter(description = "ID товара для обновления", required = true, example = "1")
@@ -112,6 +116,7 @@ public class ProductController {
             @ApiResponse(responseCode = "204", description = "Товар удален"),
             @ApiResponse(responseCode = "404", description = "Товар не найден")
     })
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{productId}")
     public ResponseEntity<Void> deleteProduct(
             @Parameter(description = "ID товара для удаления", required = true, example = "1")
