@@ -1,3 +1,19 @@
 spring:
   application:
     name: product-manager-api
+  datasource:
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 5
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: none
+external:
+  api:
+    url: https://fakestoreapi.com
+app:
+  import:
+    interval: 1800000
