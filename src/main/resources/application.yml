@@ -13,7 +13,8 @@ spring:
       ddl-auto: none
 external:
   api:
-    url: https://fakestoreapi.com
+    url: http://localhost:8081/api/fproducts
 app:
   import:
-    interval: 1800000
+    interval: 60000
+# 1 минута для теста
