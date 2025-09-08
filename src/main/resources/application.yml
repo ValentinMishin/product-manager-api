@@ -13,7 +13,7 @@ spring:
       ddl-auto: none
 external:
   api:
-    url: https://fakestoreapi.com
+    url: https://fakestoreapi.com/products
 app:
   import:
     interval: 1800000
