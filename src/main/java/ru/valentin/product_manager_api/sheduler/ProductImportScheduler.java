@@ -23,7 +23,7 @@ public class ProductImportScheduler {
             productService.importProducts();
             log.info("Запланированный импорт завершен успешно");
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            log.error(e.getMessage());
         }
     }
 }
