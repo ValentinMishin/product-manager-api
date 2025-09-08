@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.valentin.product_manager_api.dto.*;
 import ru.valentin.product_manager_api.dto.DtoMapper;
+import ru.valentin.product_manager_api.exception.UnSuccessfulImportException;
 import ru.valentin.product_manager_api.model.Category;
 import ru.valentin.product_manager_api.model.Product;
 import ru.valentin.product_manager_api.model.Rating;
@@ -201,7 +202,7 @@ public class ProductService {
 
         if (externalProducts.isEmpty()) {
             log.warn("Не удалось получить товары из внешнего API");
-            return;
+            throw new UnSuccessfulImportException("Не удалось получить товары из внешнего API");
         }
 
         int importedCount = 0;
