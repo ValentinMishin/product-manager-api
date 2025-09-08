@@ -36,6 +36,6 @@ create table user_role (
 );
 
 -- поиск по external_id
-create index idx_products_external_id on products(external_id);
+create index idx_products_external_id on product(external_id);
 -- по категориям
-create index idx_products_category_id on products(category_id);
+create index idx_products_category_id on product(category_id);
