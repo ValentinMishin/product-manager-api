@@ -45,7 +45,7 @@ public class ExternalApiService {
                 return Collections.emptyList();
             }
         } catch (Exception e) {
-            log.error("Исключение при запросе к внешнему API: {}", e.getMessage(), e);
+            log.error("Исключение при запросе к внешнему API: {}", e.getMessage());
             return Collections.emptyList();
         }
     }
