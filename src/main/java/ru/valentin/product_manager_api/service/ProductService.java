@@ -201,7 +201,6 @@ public class ProductService {
         List<ImportProductDto> externalProducts = externalApiService.fetchProductsFromExternalApi();
 
         if (externalProducts.isEmpty()) {
-            log.warn("Не удалось получить товары из внешнего API");
             throw new UnSuccessfulImportException("Не удалось получить товары из внешнего API");
         }
 
@@ -218,7 +217,7 @@ public class ProductService {
                 }
             } catch (Exception e) {
                 log.error("Ошибка при импорте товара с external_id {}: {}",
-                        externalProduct.getId(), e.getMessage(), e);
+                        externalProduct.getId(), e.getMessage());
             }
         }
 
