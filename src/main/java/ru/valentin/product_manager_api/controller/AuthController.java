@@ -6,15 +6,14 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.valentin.product_manager_api.dto.RegistrationRequestDto;
+import ru.valentin.product_manager_api.dto.UserRegistrationDto;
 import ru.valentin.product_manager_api.model.User;
+import ru.valentin.product_manager_api.model.UserRole;
 import ru.valentin.product_manager_api.service.AuthService;
+
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -33,8 +32,8 @@ public class AuthController {
     @ApiResponse(responseCode = "201", description = "Пользователь создан")
     @ApiResponse(responseCode = "409", description = "Пользователь уже существует")
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(
-            @Valid @RequestBody RegistrationRequestDto request) {
+    public ResponseEntity<UserRegistrationDto> registerUser(
+            @Valid @RequestBody UserRegistrationDto request) {
 
         User user = authService.createUser(
                 request.getUsername(),
@@ -42,6 +41,11 @@ public class AuthController {
                 request.getRoles()
         );
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+        UserRegistrationDto userRegistrationDto = new UserRegistrationDto(
+                request.getUsername(), request.getPassword(),
+                Set.of(UserRole.ROLE_USER)
+        );
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(userRegistrationDto);
     }
 }
