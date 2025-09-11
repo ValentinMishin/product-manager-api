@@ -8,7 +8,7 @@ import ru.valentin.product_manager_api.model.UserRole;
 import java.util.Set;
 
 @Schema(description = "DTO для регистрации клиента API")
-public class RegistrationRequestDto {
+public class UserRegistrationDto {
 
     @Schema(description = "Обязательное не пустое имя пользователя")
     @NotBlank(message = "Имя пользователя обязательно")
@@ -22,9 +22,9 @@ public class RegistrationRequestDto {
 
     private Set<UserRole> roles;
 
-    public RegistrationRequestDto() {}
+    public UserRegistrationDto() {}
 
-    public RegistrationRequestDto(String username, String password, Set<UserRole> roles) {
+    public UserRegistrationDto(String username, String password, Set<UserRole> roles) {
         this.username = username;
         this.password = password;
         this.roles = roles;
