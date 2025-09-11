@@ -193,7 +193,7 @@ public class ProductController {
     )
     @ApiResponse(responseCode = "200", description = "Товары категории получены")
     @ApiResponse(responseCode = "404", description = "Категория не найдена")
-    @GetMapping("/category/title/{categoryId}")
+    @GetMapping("/category/{categoryId}")
     public ResponseEntity<Page<ResponseProductDto>> getProductsByCategoryId(
             @Parameter(description = "ID категории", required = true, example = "1")
             @PathVariable Long categoryId,
